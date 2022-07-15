@@ -25,6 +25,8 @@
 	//$vetor = ['status' => 'sucesso'];
 	//$havePromo = false;
 
+	$vetor = ['status' => 'falha'];
+
 	// verifica cada índice do resultado e coloca na tupla cada um
 	foreach($resultado as $tupla){
 		if($tupla['anvisa'] == $anvisa){

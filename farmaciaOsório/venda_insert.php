@@ -1,13 +1,13 @@
 <?php
 	$conexao = new pdo ('sqlite:banco.sqlite');
-	$conexao2 = new pdo ('sqlite:banco.sqlite');
+//	$conexao2 = new pdo ('sqlite:banco.sqlite');
 
     $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//$select = "select p.anvisa as anvisa, c.cpf as cpf from venda v join produto p on p.id = v.produto join cliente c on c.id = v.cliente where c.cpf = '".$_REQUEST['cliente']."' and p.anvisa = '".$_REQUEST['produto']."' ";
 
-	$select ="select p.anvisa as anvisa, c.cpf as cpf from venda join produto p on p.id = produto join cliente c on c.id = cliente where cliente = '".$_REQUEST['cliente']."' ";
-	$resultado = $conexao2->query($select)->fetchAll();
+	$select ="select (select anvisa from produto where id = '" . $_REQUEST['produto'] . "') anvisa, (select cpf from cliente where id = '" . $_REQUEST['cliente'] . "') cpf;";
+	$resultado = $conexao->query($select)->fetchAll();
 
 	$anvisa = $resultado[0]['anvisa'];
 	$cpf = $resultado[0]['cpf'];
@@ -26,8 +26,8 @@
 	
 // -------------------------------------------------------------------------------------------------
 
-	$select2 ="select p.anvisa as anvisa, c.cpf as cpf from venda join produto p on p.id = produto join cliente c on c.id = cliente where cliente = '".$_REQUEST['cliente']."' ";
-	$resultado2 = $conexao->query($select2)->fetchAll();
+	$select2 ="select (select anvisa from produto where id = '" . $_REQUEST['produto'] . "') anvisa, (select cpf from cliente where id = '" . $_REQUEST['cliente'] . "') cpf;";
+	$resultado = $conexao->query($select)->fetchAll();
 
 	$anvisa2 = $resultado2[0]['anvisa'];
 	$cpf2 = $resultado2[0]['cpf'];
@@ -59,3 +59,4 @@
 	}
 
 	unset($conexao);
+	//unset($conexao2);
