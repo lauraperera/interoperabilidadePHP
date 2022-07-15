@@ -22,6 +22,17 @@
 	$json = curl_exec($client);
 	$array = json_decode($json, true);
 
+	$select ="select p.anvisa as anvisa, c.cpf as cpf from venda join produto p on p.id = produto join cliente c on c.id = cliente where cliente = '".$_REQUEST['cliente']."' ";
+	$resultado = $conexao->query($select)->fetchAll();
+
+	$anvisa = $resultado[0]['anvisa'];
+	$cpf = $resultado[0]['cpf'];
+
+	error_log(var_export($resultado, true));
+
+	$array = ['anvisa' => $anvisa, 'cpf' => $cpf];
+	$json = json_encode($array);
+
 	$client2 = curl_init('http://localhost:8082/servico.php');
 	curl_setopt($client2, CURLOPT_POSTFIELDS, $json);
 	curl_setopt($client2, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
