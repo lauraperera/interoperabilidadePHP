@@ -46,7 +46,7 @@
 
 	print $array2;
 
-	if($array['status'] == 'sucesso'){ //} || $array2['status'] == 'sucesso'){
+	if(($array['status'] == 'sucesso') || $array2['status'] == 'sucesso'){
 		$sql = " insert into venda values (null, '" . $_REQUEST['produto'] . "', '" . $_REQUEST['cliente'] . "', datetime('now'), ( select (valor * 0.9) from produto where id = '" . $_REQUEST['produto'] . "') ); ";
 		$conexao->exec($sql);
 		print '<script>alert(\'PIMBA NO DESCONTO.\');</script>';
